@@ -5,14 +5,14 @@ import (
 	"testing"
 )
 
-var dbname = "gis"
-var collname = "gis"
+var dbname = "gismongodb"
+var collname = "projectgis"
 
 func TestGeoIntersects(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", dbname)
 	coordinates := Point{
 		Coordinates: []float64{
-			106.8200974960248, -6.163418436577771,
+			106.84221779677222, -6.484133450448681,
 		},
 	}
 	datagedung := GeoIntersects(mconn, collname, coordinates)
@@ -24,11 +24,11 @@ func TestGeoWithin(t *testing.T) {
 	coordinates := Polygon{
 		Coordinates: [][][]float64{
 			{
-				{106.83515985012605, -6.166125656657883},
-				{106.83582623098323, -6.167892388658771},
-				{106.83893600831055, -6.1663096915163464},
-				{106.83834366977129, -6.1641380761234075},
-				{106.83515985012605, -6.166125656657883},
+				{106.82570304536097, -6.477059201501504},
+				{106.82606286126702, -6.477081901134298},
+				{106.82614853172089, -6.476724381786013},
+				{106.82553814331038, -6.476148372482314},
+				{106.82497554919382, -6.47605132314213},
 			},
 		},
 	}
@@ -40,7 +40,7 @@ func TestNear(t *testing.T) {
 	mconn := SetConnection2dsphere("MONGOSTRING", "gis", "gis")
 	coordinates := Point{
 		Coordinates: []float64{
-			106.80899259801674, -6.168340926357345,
+			106.83767535154254, -6.4844685488837115,
 		},
 	}
 	datagedung := Near(mconn, "gis", coordinates)
@@ -51,7 +51,7 @@ func TestNearSphere(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "gis")
 	coordinates := Point{
 		Coordinates: []float64{
-			106.81781953215608, -6.167583300161709,
+			106.8381783906836, -6.485953728953618,
 		},
 	}
 	datagedung := NearSphere(mconn, "gis", coordinates)
@@ -62,8 +62,8 @@ func TestBox(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "gis")
 	coordinates := Polyline{
 		Coordinates: [][]float64{
-			{106.8200974960248, -6.163418436577771},
-			{106.82086127204684, -6.167848024969331},
+			{106.84072267772467, -6.476259383974224},
+			{106.8399156012594, -6.476168843906208},
 		},
 	}
 	datagedung := Box(mconn, collname, coordinates)
