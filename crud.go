@@ -61,6 +61,10 @@ func GeoIntersects(mconn *mongo.Database, collname string, coordinates Polygon) 
 	return GetGeoIntersectsDoc(mconn, collname, coordinates)
 }
 
+func GeoIntersectsPolyline(mconn *mongo.Database, collname string, coordinates Polyline) string {
+	return GetGeoIntersectsDocPolyline(mconn, collname, coordinates)
+}
+
 func GeoWithin(mconn *mongo.Database, collname string, coordinates Polygon) string {
 	return GetGeoWithinDoc(mconn, collname, coordinates)
 }

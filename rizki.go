@@ -93,6 +93,24 @@ func PostGeoIntersects(mongoenv, dbname, collname string, r *http.Request) strin
 	return ReturnStruct(response)
 }
 
+func PostGeoIntersectsPolyline(mongoenv, dbname, collname string, r *http.Request) string {
+	var coordinates Polyline
+	var response Pesan
+	response.Status = false
+	mconn := SetConnection(mongoenv, dbname)
+
+	err := json.NewDecoder(r.Body).Decode(&coordinates)
+
+	if err != nil {
+		response.Message = "Error parsing application/json: " + err.Error()
+		return ReturnStruct(response)
+	}
+
+	response.Status = true
+	response.Message = GeoIntersectsPolyline(mconn, collname, coordinates)
+	return ReturnStruct(response)
+}
+
 func PostGeoWithin(mongoenv, dbname, collname string, r *http.Request) string {
 	var coordinate Polygon
 	var response Pesan
