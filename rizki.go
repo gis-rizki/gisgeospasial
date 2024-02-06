@@ -75,7 +75,7 @@ func AmbilDataGeojson(mongoenv, dbname, collname string, r *http.Request) string
 	return ReturnStruct(datagedung)
 }
 
-func PostGeoIntersects(mongoenv, dbname, collname string, r *http.Request) string {
+func PostGeoIntersectsPolygon(mongoenv, dbname, collname string, r *http.Request) string {
 	var coordinates Polygon
 	var response Pesan
 	response.Status = false

@@ -101,7 +101,7 @@ type Point struct {
 }
 
 type PointInter struct {
-	Coordinates [][][]float64 `json:"coordinates" bson:"coordinates"`
+	Coordinates []float64 `json:"coordinates" bson:"coordinates"`
 }
 
 type Polyline struct {
