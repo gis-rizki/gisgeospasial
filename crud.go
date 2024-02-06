@@ -65,7 +65,7 @@ func GeoIntersectsPolyline(mconn *mongo.Database, collname string, coordinates P
 	return GetGeoIntersectsDocPolyline(mconn, collname, coordinates)
 }
 
-func GeoIntersectsPoint(mconn *mongo.Database, collname string, coordinates Point) string {
+func GeoIntersectsPoint(mconn *mongo.Database, collname string, coordinates PointInter) string {
 	return GetGeoIntersectsDocPoint(mconn, collname, coordinates)
 }
 

@@ -112,7 +112,7 @@ func PostGeoIntersectsPolyline(mongoenv, dbname, collname string, r *http.Reques
 }
 
 func PostGeoIntersectsPoint(mongoenv, dbname, collname string, r *http.Request) string {
-	var coordinates Point
+	var coordinates PointInter
 	var response Pesan
 	response.Status = false
 	mconn := SetConnection(mongoenv, dbname)

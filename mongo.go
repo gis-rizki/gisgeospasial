@@ -248,7 +248,7 @@ func GetGeoIntersectsDocPolyline(db *mongo.Database, collname string, coordinate
 	}
 }
 
-func GetGeoIntersectsDocPoint(db *mongo.Database, collname string, coordinates Point) (result string) {
+func GetGeoIntersectsDocPoint(db *mongo.Database, collname string, coordinates PointInter) (result string) {
 	filter := bson.M{
 		"geometry": bson.M{
 			"$geoIntersects": bson.M{
