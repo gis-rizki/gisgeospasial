@@ -10,9 +10,15 @@ var collname = "projectgis"
 
 func TestGeoIntersects(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", dbname)
-	coordinates := Point{
-		Coordinates: []float64{
-			106.84221779677222, -6.484133450448681,
+	coordinates := Polygon{
+		Coordinates: [][][]float64{
+			{
+				{106.82570304536097, -6.477059201501504},
+				{106.82606286126702, -6.477081901134298},
+				{106.82614853172089, -6.476724381786013},
+				{106.82578300445192, -6.476667632660593},
+				{106.82570304536097, -6.477059201501504},
+			},
 		},
 	}
 	datagedung := GeoIntersects(mconn, collname, coordinates)
@@ -27,8 +33,8 @@ func TestGeoWithin(t *testing.T) {
 				{106.82570304536097, -6.477059201501504},
 				{106.82606286126702, -6.477081901134298},
 				{106.82614853172089, -6.476724381786013},
-				{106.82553814331038, -6.476148372482314},
-				{106.82497554919382, -6.47605132314213},
+				{106.82578300445192, -6.476667632660593},
+				{106.82570304536097, -6.477059201501504},
 			},
 		},
 	}
@@ -37,33 +43,33 @@ func TestGeoWithin(t *testing.T) {
 }
 
 func TestNear(t *testing.T) {
-	mconn := SetConnection2dsphere("MONGOSTRING", "gis", "gis")
+	mconn := SetConnection2dsphere("MONGOSTRING", "gismongodb", "projectgis")
 	coordinates := Point{
 		Coordinates: []float64{
-			106.83767535154254, -6.4844685488837115,
+			106.83165780963839, -6.4737440161616036,
 		},
 	}
-	datagedung := Near(mconn, "gis", coordinates)
+	datagedung := Near(mconn, "projectgis", coordinates)
 	fmt.Println(datagedung)
 }
 
 func TestNearSphere(t *testing.T) {
-	mconn := SetConnection("MONGOSTRING", "gis")
+	mconn := SetConnection("MONGOSTRING", "gismongodb")
 	coordinates := Point{
 		Coordinates: []float64{
-			106.8381783906836, -6.485953728953618,
+			106.82523088801918, -6.476722204156317,
 		},
 	}
-	datagedung := NearSphere(mconn, "gis", coordinates)
+	datagedung := NearSphere(mconn, "projectgis", coordinates)
 	fmt.Println(datagedung)
 }
 
 func TestBox(t *testing.T) {
-	mconn := SetConnection("MONGOSTRING", "gis")
+	mconn := SetConnection("MONGOSTRING", "gismongodb")
 	coordinates := Polyline{
 		Coordinates: [][]float64{
-			{106.84072267772467, -6.476259383974224},
-			{106.8399156012594, -6.476168843906208},
+			{106.83882411639951, -6.477228063790221},
+			{106.83879808167569, -6.477803638454645},
 		},
 	}
 	datagedung := Box(mconn, collname, coordinates)
