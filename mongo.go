@@ -248,6 +248,57 @@ func GetGeoIntersectsDocPolyline(db *mongo.Database, collname string, coordinate
 	}
 }
 
+func GetGeoIntersectsDocPoint(db *mongo.Database, collname string, coordinates Point) (result string) {
+	filter := bson.M{
+		"geometry": bson.M{
+			"$geoIntersects": bson.M{
+				"$geometry": bson.M{
+					"type":        "Point",
+					"coordinates": coordinates.Coordinates,
+				},
+			},
+		},
+	}
+	var docs []FullGeoJson
+	cur, err := db.Collection(collname).Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Printf("GeoIntersects: %v\n", err)
+		return "Error querying data"
+	}
+
+	defer cur.Close(context.TODO())
+
+	for cur.Next(context.TODO()) {
+		var doc FullGeoJson
+		err := cur.Decode(&doc)
+		if err != nil {
+			fmt.Printf("Decode Err: %v\n", err)
+			continue
+		}
+		docs = append(docs, doc)
+	}
+
+	if err := cur.Err(); err != nil {
+		fmt.Printf("Cursor Err: %v\n", err)
+		return "Error iterating cursor"
+	}
+
+	// Ambil nilai properti Name dari setiap dokumen
+	var names []string
+	for _, doc := range docs {
+		names = append(names, doc.Properties.Name)
+	}
+
+	// Gabungkan nilai-nilai dengan koma
+	result = strings.Join(names, ", ")
+
+	if result != "" {
+		return "Koordinat anda bersinggungan dengan " + result
+	} else {
+		return "Tidak ada data yang bersinggungan"
+	}
+}
+
 func GetGeoWithinDoc(db *mongo.Database, collname string, coordinates Polygon) (result string) {
 	filter := bson.M{
 		"geometry": bson.M{
